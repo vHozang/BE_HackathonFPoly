@@ -1,0 +1,3 @@
+employee_code,full_name,company_email,phone_number,hire_date,date_of_birth,gender,nationality_id,department_id,position_id,basic_salary,gross_salary,net_salary,probation_months,contract_code,contract_number,job_title,work_location
+TV0001,Nguyen Van Thu,thu.nguyen@company.com,0912000001,2026-03-10,2000-01-15,NAM,1,2,6,8000000,8000000,7600000,2,HDTV-TV0001,HD/TV/2026/0001,Nhan vien thu viec,HCM
+TV0002,Tran Thi Linh,linh.tran@company.com,0912000002,2026-03-10,2001-05-20,NỮ,1,5,13,10000000,11000000,10200000,2,HDTV-TV0002,HD/TV/2026/0002,Lap trinh vien thu viec,HCM

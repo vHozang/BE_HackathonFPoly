@@ -1,0 +1,1659 @@
+﻿{
+    "info":  {
+                 "name":  "HRM API v1 - Full Test",
+                 "_postman_id":  "e1d157f5-21f0-4a42-8f73-0b61f064c69a",
+                 "description":  "Full Postman collection for HRM API v1 routes with auto token/id capture.",
+                 "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+             },
+    "auth":  {
+                 "type":  "bearer",
+                 "bearer":  [
+                                {
+                                    "key":  "token",
+                                    "value":  "{{token}}",
+                                    "type":  "string"
+                                }
+                            ]
+             },
+    "event":  [
+                  {
+                      "listen":  "prerequest",
+                      "script":  {
+                                     "type":  "text/javascript",
+                                     "exec":  [
+                                                  "pm.collectionVariables.set(\u0027rand\u0027, Date.now().toString());"
+                                              ]
+                                 }
+                  }
+              ],
+    "variable":  [
+                     {
+                         "key":  "baseUrl",
+                         "value":  "http://127.0.0.1:8080/api/v1"
+                     },
+                     {
+                         "key":  "employee_code",
+                         "value":  "NV0009"
+                     },
+                     {
+                         "key":  "company_email",
+                         "value":  "hai.do@company.com"
+                     },
+                     {
+                         "key":  "password",
+                         "value":  "NV0009"
+                     },
+                     {
+                         "key":  "token",
+                         "value":  ""
+                     },
+                     {
+                         "key":  "auth_employee_id",
+                         "value":  "9"
+                     },
+                     {
+                         "key":  "rand",
+                         "value":  ""
+                     },
+                     {
+                         "key":  "employee_id",
+                         "value":  "9"
+                     },
+                     {
+                         "key":  "department_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "request_type_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "request_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "leave_request_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "asset_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "assignment_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "attendance_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "overtime_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "period_id",
+                         "value":  "3"
+                     },
+                     {
+                         "key":  "salary_detail_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "breakdown_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "news_category_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "news_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "policy_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "employee_id_runtime",
+                         "value":  "9"
+                     },
+                     {
+                         "key":  "test_employee_id",
+                         "value":  ""
+                     },
+                     {
+                         "key":  "shift_hc_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "shift_ca1_id",
+                         "value":  "2"
+                     },
+                     {
+                         "key":  "shift_ca2_id",
+                         "value":  "3"
+                     },
+                     {
+                         "key":  "shift_ca3_id",
+                         "value":  "4"
+                     }
+                 ],
+    "item":  [
+                 {
+                     "name":  "Health",
+                     "item":  [
+                                  {
+                                      "name":  "GET health",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/health",
+                                                      "auth":  {
+                                                                   "type":  "noauth"
+                                                               }
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Auth",
+                     "item":  [
+                                  {
+                                      "name":  "POST login",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/auth/login",
+                                                      "auth":  {
+                                                                   "type":  "noauth"
+                                                               },
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"company_email\": \"{{company_email}}\",\n  \"password\": \"{{password}}\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "pm.test(\u0027Login success\u0027, function () {",
+                                                                                    "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                                                                                    "});",
+                                                                                    "const res = pm.response.json();",
+                                                                                    "if (res \u0026\u0026 res.data) {",
+                                                                                    "  if (res.data.access_token) {",
+                                                                                    "    pm.collectionVariables.set(\u0027token\u0027, res.data.access_token);",
+                                                                                    "    pm.environment.set(\u0027token\u0027, res.data.access_token);",
+                                                                                    "  }",
+                                                                                    "  if (res.data.user \u0026\u0026 res.data.user.employee_id) {",
+                                                                                    "    var __id = String(res.data.user.employee_id);",
+                                                                                    "    pm.collectionVariables.set(\u0027auth_employee_id\u0027, __id);",
+                                                                                    "    pm.environment.set(\u0027auth_employee_id\u0027, __id);",
+                                                                                    "    pm.collectionVariables.set(\u0027employee_id\u0027, __id);",
+                                                                                    "    pm.environment.set(\u0027employee_id\u0027, __id);",
+                                                                                    "  }",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "GET me",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/auth/me"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST refresh",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/auth/refresh"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET hierarchy",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/auth/hierarchy"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Employees",
+                     "item":  [
+                                  {
+                                      "name":  "GET employees",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/employees?page=1\u0026per_page=20\u0026q=\u0026status=\u0026department_id="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET employee by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/employees/{{employee_id_runtime}}"
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "prerequest",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var id = pm.environment.get(\u0027test_employee_id\u0027) || pm.collectionVariables.get(\u0027test_employee_id\u0027) || pm.environment.get(\u0027employee_id\u0027) || pm.collectionVariables.get(\u0027employee_id\u0027) || \u00271\u0027;",
+                                                                                    "pm.variables.set(\u0027employee_id_runtime\u0027, String(id));"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "POST create employee",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/employees",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"employee_code\": \"EMP{{rand}}\",\n  \"full_name\": \"Postman Employee {{rand}}\",\n  \"company_email\": \"employee{{rand}}@company.com\",\n  \"hire_date\": \"2026-03-10\",\n  \"phone_number\": \"0900000000\",\n  \"nationality_id\": 1\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.employee_id) {",
+                                                                                    "  var __id = String(d.employee_id);",
+                                                                                    "  pm.collectionVariables.set(\u0027employee_id\u0027, __id);",
+                                                                                    "  pm.environment.set(\u0027employee_id\u0027, __id);",
+                                                                                    "  pm.collectionVariables.set(\u0027test_employee_id\u0027, __id);",
+                                                                                    "  pm.environment.set(\u0027test_employee_id\u0027, __id);",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update employee",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/employees/{{employee_id_runtime}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"full_name\": \"Updated Postman Employee\",\n  \"phone_number\": \"0911111111\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "prerequest",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var id = pm.environment.get(\u0027test_employee_id\u0027) || pm.collectionVariables.get(\u0027test_employee_id\u0027) || pm.environment.get(\u0027auth_employee_id\u0027) || pm.collectionVariables.get(\u0027auth_employee_id\u0027) || pm.environment.get(\u0027employee_id\u0027) || pm.collectionVariables.get(\u0027employee_id\u0027) || \u00279\u0027;",
+                                                                                    "pm.variables.set(\u0027employee_id_runtime\u0027, String(id));"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "DELETE employee",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/employees/{{employee_id_runtime}}"
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "prerequest",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var id = pm.environment.get(\u0027test_employee_id\u0027) || pm.collectionVariables.get(\u0027test_employee_id\u0027) || pm.environment.get(\u0027auth_employee_id\u0027) || pm.collectionVariables.get(\u0027auth_employee_id\u0027) || pm.environment.get(\u0027employee_id\u0027) || pm.collectionVariables.get(\u0027employee_id\u0027) || \u00279\u0027;",
+                                                                                    "pm.variables.set(\u0027employee_id_runtime\u0027, String(id));"
+                                                                                ]
+                                                                   }
+                                                    },
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "if (pm.response.code === 200) {",
+                                                                                    "  pm.environment.unset(\u0027test_employee_id\u0027);",
+                                                                                    "  pm.collectionVariables.unset(\u0027test_employee_id\u0027);",
+                                                                                    "  var authId = pm.environment.get(\u0027auth_employee_id\u0027) || pm.collectionVariables.get(\u0027auth_employee_id\u0027) || \u00279\u0027;",
+                                                                                    "  pm.environment.set(\u0027employee_id_runtime\u0027, String(authId));",
+                                                                                    "  pm.collectionVariables.set(\u0027employee_id_runtime\u0027, String(authId));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "POST import probation (form-data)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/employees/import-probation",
+                                                      "body":  {
+                                                                   "mode":  "formdata",
+                                                                   "formdata":  [
+                                                                                    {
+                                                                                        "key":  "file",
+                                                                                        "type":  "file",
+                                                                                        "src":  ""
+                                                                                    },
+                                                                                    {
+                                                                                        "key":  "dry_run",
+                                                                                        "type":  "text",
+                                                                                        "value":  "true"
+                                                                                    },
+                                                                                    {
+                                                                                        "key":  "create_contract",
+                                                                                        "type":  "text",
+                                                                                        "value":  "true"
+                                                                                    },
+                                                                                    {
+                                                                                        "key":  "create_history",
+                                                                                        "type":  "text",
+                                                                                        "value":  "true"
+                                                                                    }
+                                                                                ]
+                                                               }
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Departments",
+                     "item":  [
+                                  {
+                                      "name":  "GET departments",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/departments?page=1\u0026per_page=20\u0026q=\u0026manager_id="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET department by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/departments/{{department_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create department",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/departments",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"department_code\": \"DPT{{rand}}\",\n  \"department_name\": \"Department {{rand}}\",\n  \"description\": \"Created from Postman\",\n  \"status\": true\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.department_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027department_id\u0027, String(d.department_id));",
+                                                                                    "  pm.environment.set(\u0027department_id\u0027, String(d.department_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update department",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/departments/{{department_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"department_name\": \"Updated Department {{rand}}\",\n  \"description\": \"Updated from Postman\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE department",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/departments/{{department_id}}"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Request Types",
+                     "item":  [
+                                  {
+                                      "name":  "GET request types",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/request-types?page=1\u0026per_page=20\u0026q=\u0026category="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET request type by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/request-types/{{request_type_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create request type",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/request-types",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"request_type_code\": \"RT{{rand}}\",\n  \"request_type_name\": \"Request Type {{rand}}\",\n  \"category\": \"KHÁC\",\n  \"requires_approval\": true,\n  \"description\": \"Created from Postman\",\n  \"is_active\": true\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.request_type_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027request_type_id\u0027, String(d.request_type_id));",
+                                                                                    "  pm.environment.set(\u0027request_type_id\u0027, String(d.request_type_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update request type",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/request-types/{{request_type_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"request_type_name\": \"Updated Request Type {{rand}}\",\n  \"description\": \"Updated from Postman\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE request type",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/request-types/{{request_type_id}}"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Requests",
+                     "item":  [
+                                  {
+                                      "name":  "GET requests",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/requests?page=1\u0026per_page=20\u0026q=\u0026status=\u0026requester_id=\u0026request_type_id="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET request by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/requests/{{request_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create request",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/requests",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"request_type_id\": 1,\n  \"requester_id\": {{auth_employee_id}},\n  \"request_date\": \"2026-03-10\",\n  \"from_date\": \"2026-03-11 08:00:00\",\n  \"to_date\": \"2026-03-11 17:00:00\",\n  \"duration\": 1,\n  \"reason\": \"Postman request {{rand}}\",\n  \"is_urgent\": false\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.request_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027request_id\u0027, String(d.request_id));",
+                                                                                    "  pm.environment.set(\u0027request_id\u0027, String(d.request_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update request",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/requests/{{request_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"reason\": \"Updated reason from Postman\",\n  \"notes\": \"Updated\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE request",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/requests/{{request_id}}"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Leave",
+                     "item":  [
+                                  {
+                                      "name":  "GET leave requests",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/leave-requests?page=1\u0026per_page=20\u0026employee_id=\u0026leave_type_id=\u0026date_from=\u0026date_to="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET leave request by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/leave-requests/{{leave_request_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create leave request",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/leave-requests",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"requester_id\": {{auth_employee_id}},\n  \"request_date\": \"2026-03-10\",\n  \"leave_type_id\": 1,\n  \"employee_id\": {{auth_employee_id}},\n  \"from_date\": \"2026-03-20\",\n  \"to_date\": \"2026-03-20\",\n  \"number_of_days\": 1,\n  \"reason\": \"Leave request from Postman {{rand}}\",\n  \"is_urgent\": false\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.request \u0026\u0026 d.request.request_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027request_id\u0027, String(d.request.request_id));",
+                                                                                    "  pm.environment.set(\u0027request_id\u0027, String(d.request.request_id));",
+                                                                                    "}",
+                                                                                    "if (d \u0026\u0026 d.leave_request \u0026\u0026 d.leave_request.leave_request_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027leave_request_id\u0027, String(d.leave_request.leave_request_id));",
+                                                                                    "  pm.environment.set(\u0027leave_request_id\u0027, String(d.leave_request.leave_request_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "GET leave balances",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/leave-balances?page=1\u0026per_page=20\u0026employee_id=\u0026year="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET leave balance by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/leave-balances/1"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Assets",
+                     "item":  [
+                                  {
+                                      "name":  "GET assets",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/assets?page=1\u0026per_page=20\u0026q=\u0026status="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET asset by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/assets/{{asset_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create asset",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/assets",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"asset_code\": \"AST{{rand}}\",\n  \"asset_name\": \"Laptop Postman {{rand}}\",\n  \"purchase_date\": \"2026-03-10\",\n  \"purchase_price\": 15000000\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.asset_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027asset_id\u0027, String(d.asset_id));",
+                                                                                    "  pm.environment.set(\u0027asset_id\u0027, String(d.asset_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update asset",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/assets/{{asset_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"asset_name\": \"Updated Laptop Postman\",\n  \"condition_note\": \"Good\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET asset assignments",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/asset-assignments?page=1\u0026per_page=20\u0026employee_id=\u0026status="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create asset assignment",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/asset-assignments",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"asset_id\": {{asset_id}},\n  \"employee_id\": {{auth_employee_id}},\n  \"assigned_date\": \"2026-03-10\",\n  \"assignment_notes\": \"Assigned from Postman\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.assignment_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027assignment_id\u0027, String(d.assignment_id));",
+                                                                                    "  pm.environment.set(\u0027assignment_id\u0027, String(d.assignment_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Attendance \u0026 Overtime",
+                     "item":  [
+                                  {
+                                      "name":  "GET attendances",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/attendances?page=1\u0026per_page=20\u0026date_from=2026-03-01\u0026date_to=2026-03-31\u0026status="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET attendance by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/attendances/{{attendance_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create attendance",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/attendances",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"employee_id\": {{auth_employee_id}},\n  \"attendance_date\": \"2026-03-11\",\n  \"shift_type_id\": {{shift_ca1_id}},\n  \"check_in_time\": \"2026-03-11 06:00:00\",\n  \"check_out_time\": \"2026-03-11 14:00:00\",\n  \"check_in_method\": \"MOBILE\",\n  \"check_out_method\": \"MOBILE\",\n  \"work_type\": \"VĂN_PHÒNG\",\n  \"actual_working_hours\": 8,\n  \"status\": \"ĐÃ_DUYỆT\",\n  \"notes\": \"CA1 test\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.attendance_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027attendance_id\u0027, String(d.attendance_id));",
+                                                                                    "  pm.environment.set(\u0027attendance_id\u0027, String(d.attendance_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update attendance",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/attendances/{{attendance_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"notes\": \"Updated by Postman\",\n  \"late_minutes\": 0\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE attendance",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/attendances/{{attendance_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET overtime requests",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/overtime-requests?page=1\u0026per_page=20\u0026date_from=\u0026date_to=\u0026status="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET overtime request by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/overtime-requests/{{overtime_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create overtime request",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/overtime-requests",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"employee_id\": {{auth_employee_id}},\n  \"overtime_date\": \"2026-03-10\",\n  \"start_time\": \"18:00:00\",\n  \"end_time\": \"20:00:00\",\n  \"break_time\": 0,\n  \"reason\": \"Overtime from Postman {{rand}}\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.overtime_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027overtime_id\u0027, String(d.overtime_id));",
+                                                                                    "  pm.environment.set(\u0027overtime_id\u0027, String(d.overtime_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update overtime request",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/overtime-requests/{{overtime_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"reason\": \"Updated overtime reason\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE overtime request",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/overtime-requests/{{overtime_id}}"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Payroll",
+                     "item":  [
+                                  {
+                                      "name":  "GET salary periods",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-periods?page=1\u0026per_page=20\u0026year=\u0026status="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET salary period by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-periods/{{period_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create salary period",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-periods",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"period_code\": \"PTEST{{rand}}\",\n  \"period_name\": \"Postman Period {{rand}}\",\n  \"period_type\": \"MONTHLY\",\n  \"year\": 2026,\n  \"month\": 3,\n  \"start_date\": \"2026-03-01\",\n  \"end_date\": \"2026-03-31\",\n  \"standard_working_days\": 26,\n  \"status\": \"OPEN\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.period_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027period_id\u0027, String(d.period_id));",
+                                                                                    "  pm.environment.set(\u0027period_id\u0027, String(d.period_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update salary period",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-periods/{{period_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"notes\": \"Updated by Postman\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET salary details",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-details?page=1\u0026per_page=20\u0026period_id={{period_id}}\u0026transfer_status="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET salary detail by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-details/{{salary_detail_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create salary detail",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-details",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"period_id\": {{period_id}},\n  \"employee_id\": {{auth_employee_id}},\n  \"basic_salary\": 10000000,\n  \"gross_salary\": 12000000,\n  \"net_salary\": 11000000,\n  \"total_allowances\": 1000000,\n  \"total_deductions\": 500000,\n  \"bank_account\": \"123456789\",\n  \"bank_name\": \"VCB\",\n  \"transfer_status\": \"PENDING\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.salary_detail_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027salary_detail_id\u0027, String(d.salary_detail_id));",
+                                                                                    "  pm.environment.set(\u0027salary_detail_id\u0027, String(d.salary_detail_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update salary detail",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-details/{{salary_detail_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"transfer_status\": \"TRANSFERRED\",\n  \"notes\": \"Transferred by Postman\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET salary breakdowns",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-breakdowns?page=1\u0026per_page=20\u0026salary_detail_id=\u0026item_type="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET salary breakdown by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-breakdowns/{{breakdown_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create salary breakdown",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-breakdowns",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"salary_detail_id\": {{salary_detail_id}},\n  \"item_type\": \"ALLOWANCE\",\n  \"item_name\": \"Postman Allowance\",\n  \"amount\": 500000,\n  \"is_taxable\": false,\n  \"is_insurable\": false\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.breakdown_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027breakdown_id\u0027, String(d.breakdown_id));",
+                                                                                    "  pm.environment.set(\u0027breakdown_id\u0027, String(d.breakdown_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update salary breakdown",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-breakdowns/{{breakdown_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"amount\": 600000,\n  \"description\": \"Updated by Postman\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE salary breakdown",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/salary-breakdowns/{{breakdown_id}}"
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Communication",
+                     "item":  [
+                                  {
+                                      "name":  "GET news categories",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news-categories?page=1\u0026per_page=20\u0026q="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET news category by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news-categories/{{news_category_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create news category",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news-categories",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"category_code\": \"NC{{rand}}\",\n  \"category_name\": \"Category {{rand}}\",\n  \"description\": \"Created from Postman\",\n  \"status\": true\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.category_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027news_category_id\u0027, String(d.category_id));",
+                                                                                    "  pm.environment.set(\u0027news_category_id\u0027, String(d.category_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update news category",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news-categories/{{news_category_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"category_name\": \"Updated Category {{rand}}\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE news category",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news-categories/{{news_category_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET news",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news?page=1\u0026per_page=20\u0026q=\u0026status="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET news by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news/{{news_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create news",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"category_id\": {{news_category_id}},\n  \"title\": \"Postman News {{rand}}\",\n  \"summary\": \"Summary from Postman\",\n  \"content\": \"Content from Postman\",\n  \"priority\": \"TRUNG_BÌNH\",\n  \"is_important\": false,\n  \"is_pinned\": false,\n  \"status\": \"NHÁP\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.news_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027news_id\u0027, String(d.news_id));",
+                                                                                    "  pm.environment.set(\u0027news_id\u0027, String(d.news_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update news",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news/{{news_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"title\": \"Updated Postman News {{rand}}\",\n  \"status\": \"ĐÃ_XUẤT_BẢN\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE news",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news/{{news_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST mark news as read",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/news/{{news_id}}/read"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET policies",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/policies?page=1\u0026per_page=20\u0026q=\u0026status="
+                                                  }
+                                  },
+                                  {
+                                      "name":  "GET policy by id",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/policies/{{policy_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST create policy",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/policies",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"policy_name\": \"Policy {{rand}}\",\n  \"policy_type\": \"QUY_DINH\",\n  \"content\": \"Policy content from Postman\",\n  \"effective_date\": \"2026-03-10\",\n  \"is_required_acknowledgment\": true,\n  \"status\": \"NHÁP\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "type":  "text/javascript",
+                                                                       "exec":  [
+                                                                                    "var __r = pm.response.json(); const d = (__r \u0026\u0026 __r.data) ? __r.data : null;",
+                                                                                    "if (d \u0026\u0026 d.policy_id) {",
+                                                                                    "  pm.collectionVariables.set(\u0027policy_id\u0027, String(d.policy_id));",
+                                                                                    "  pm.environment.set(\u0027policy_id\u0027, String(d.policy_id));",
+                                                                                    "}"
+                                                                                ]
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "PATCH update policy",
+                                      "request":  {
+                                                      "method":  "PATCH",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/policies/{{policy_id}}",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"policy_name\": \"Updated Policy {{rand}}\",\n  \"status\": \"HIỆU_LỰC\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "DELETE policy",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/policies/{{policy_id}}"
+                                                  }
+                                  },
+                                  {
+                                      "name":  "POST acknowledge policy",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  "{{baseUrl}}/policies/{{policy_id}}/acknowledge"
+                                                  }
+                                  }
+                              ]
+                 }
+             ]
+}
